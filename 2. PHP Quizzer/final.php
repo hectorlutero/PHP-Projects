@@ -1,5 +1,3 @@
-<?php include 'database.php' ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +14,10 @@
     </header>
     <main>
         <div class="container">
-            <h2>test your knowledge</h2>
-            <p>This is a multiple choice quiz</p>
-            <ul>
-                <li><strong>Number of questions:</strong>5</li>
-                <li><strong>Type:</strong>Multiple Choice</li>
-                <li><strong>Estimated Time:</strong>4 minutes</li>
-            </ul>
-            <a href="question.php?n=1" class="start">Start Quiz</a>
+           <h2>You're Done!</h2>
+            <p>Congrats! You have completed the test.</p>
+            <p>Final Score: 5</p>
+            <a href="question.php?n=1" class="start">Take again</a>
         </div>
     </main>
     <footer>
