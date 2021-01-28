@@ -67,3 +67,11 @@ header h1 {
         width: 98%;    
     }
 }
+
+.error-msg {
+    background: red;
+    width: 98%;
+    color: #fff;
+    padding: 5px;
+    margin-bottom: 10px;
+}

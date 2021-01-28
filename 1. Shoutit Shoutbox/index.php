@@ -2,7 +2,7 @@
 <?php
 
     // Create a Select Query
-    $sql    = "SELECT * FROM shouts";
+    $sql    = "SELECT * FROM shouts ORDER BY id DESC";
     $shouts = mysqli_query($conn, $sql);
 
 ?>
@@ -28,6 +28,10 @@
             </ul>
         </div>
         <div id="input">
+            
+            <?php if(isset($_GET['error'])) :?>
+                <div class="error-msg"><?= $_GET['error']; ?></div>
+            <?php endif; ?>
             <form action="process.php" method="post">
                 <input type="text" name="user" placeholder="Enter your name">
                 <input type="text" name="message" placeholder="Enter your message">
