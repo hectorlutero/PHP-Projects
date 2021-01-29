@@ -1,3 +1,31 @@
+<?php include 'database.php'; ?>
+<?php
+
+    // Set question number
+    $number = (int) $_GET['n'];
+
+    /*
+    *   Get Question
+    */
+    $query = "SELECT * FROM `questions` WHERE question_number = $number";
+
+    // Get result
+    $result = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+
+    $question = $result->fetch_assoc();
+
+    /*
+    *   Get Choices
+    */
+    $query = "SELECT * FROM `choices` WHERE question_number = $number";
+
+    // Get result
+    $choices = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+
+    
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +42,14 @@
     </header>
     <main>
         <div class="container">
-            <h2>test your knowledge</h2>
+            <h2><?= $question['text']; ?></h2>
             <div class="current">Question 1 of 5</div>
             <p class="question">Some question, question?</p>
             <form action="process.php" method="post">
                 <ul class="choices">
-                    <li><input type="radio" name="choice" value="1" />Some answer</li>
-                    <li><input type="radio" name="choice" value="1" />Some answer</li>
-                    <li><input type="radio" name="choice" value="1" />Some answer</li>
-                    <li><input type="radio" name="choice" value="1" /> Some answer</li>
+                <?php while ($row = $choices->fetch_assoc()) : ?>
+                    <li><input type="radio" name="choice" value="<?= $row['id']; ?>" /><?= $row['text']; ?></li>
+                <?php endwhile; ?>
                 </ul>
                 <input type="submit" value="Send">
             </form>
