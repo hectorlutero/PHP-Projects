@@ -51,9 +51,9 @@
     </header>
     <main>
         <div class="container">
-            <h2><?= $question['text']; ?></h2>
+            <h2>Question <?= $number ?></h2>
             <div class="current">Question <?= $number ?> of <?= $total ?></div>
-            <p class="question">Some question, question?</p>
+            <p class="question"><?= $question['text']; ?></p>
             <form action="process.php" method="post">
                 <ul class="choices">
                 <?php while ($row = $choices->fetch_assoc()) : ?>
