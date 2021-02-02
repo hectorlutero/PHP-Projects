@@ -1,28 +1,4 @@
-<?php 
-
-include 'database.php';
-
-?>
-
-<?php 
-    /*
-    *   Get total questions
-    */
-
-    $query = "SELECT * FROM questions";
-    // Get results
-    $results = $mysqli->query($query) or die($mysqli->error.__LINE__);
-    $total = $results->num_rows;
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizzer</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+<?php require 'header.php'; ?>
 <body>
     <header>
         <div class="container">

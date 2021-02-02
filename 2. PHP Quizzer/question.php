@@ -1,48 +1,9 @@
-<?php include 'database.php'; ?>
-<?php
-    session_start();
-    // Set question number
-    $number = (int) $_GET['n'];
+<?php 
 
-    /*
-    *   Get Question
-    */
-    $query = "SELECT * FROM `questions` WHERE question_number = $number";
-
-    // Get result
-    $result = $mysqli->query($query) or die ($mysqli->error.__LINE__);
-
-    $question = $result->fetch_assoc();
-
-    /*
-    *   Get Choices
-    */
-    $query = "SELECT * FROM `choices` WHERE question_number = $number";
-
-    // Get result
-    $choices = $mysqli->query($query) or die ($mysqli->error.__LINE__);
-
-        /*
-    *   Get total questions
-    */
-
-    $query = "SELECT * FROM questions";
-    // Get results
-    $results = $mysqli->query($query) or die($mysqli->error.__LINE__);
-    $total = $results->num_rows;
-
-    
-
+include 'database.php'; 
+require 'header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizzer</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
 <body>
     <header>
         <div class="container">
