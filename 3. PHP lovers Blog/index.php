@@ -1,9 +1,22 @@
-<?php require 'includes/header.inc.php'; ?>
+<?php
+require 'includes/header.inc.php';
+
+    // Create DB Object
+    $db = new DB();
+
+    // Create a Query;
+    $query    = "SELECT * FROM posts";
+    $category = "SELECT * FROM categories";
+
+    // Run Query
+    $posts = $db->select($query);
+    $categories = $db->select($category);
+?>
 
   <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
     <div class="col-md-6 px-0">
-      <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+      <h1 class="display-4 font-italic">Check this new featured Post!</h1>
+      <p class="lead my-3">I could write down a bunch of text here, that doesn't make any sense at all... And I did.</p>
       <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
     </div>
   </div>
@@ -12,9 +25,9 @@
     <div class="col-md-6">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">World</strong>
+          <strong class="d-inline-block mb-2 text-primary">All Posts</strong>
           <h3 class="mb-0">Featured post</h3>
-          <div class="mb-1 text-muted">Nov 12</div>
+          <div class="mb-1 text-muted">Fev 2</div>
           <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
           <a href="#" class="stretched-link">Continue reading</a>
         </div>
@@ -26,9 +39,9 @@
     <div class="col-md-6">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-success">Design</strong>
+          <strong class="d-inline-block mb-2 text-success">Subject</strong>
           <h3 class="mb-0">Post title</h3>
-          <div class="mb-1 text-muted">Nov 11</div>
+          <div class="mb-1 text-muted">Jan 21</div>
           <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
           <a href="#" class="stretched-link" href="<?= "post.php?id=1" ?>">Continue reading</a>
         </div>
@@ -42,97 +55,33 @@
 
 <main role="main" class="container">
   <div class="row">
+
+<!-- Checking if there are any posts -->
+  <?php if($posts) : ?>
+  
+  
     <div class="col-md-8 blog-main">
       <h3 class="pb-4 mb-4 font-italic border-bottom">
-        From the Firehose
+        From my Awesome Mind Directly!
       </h3>
-
+  
+  <?php while($row = $posts->fetch_assoc()) : ?>
       <div class="blog-post">
-        <h2 class="blog-post-title">POST 1</h2>
-        <p class="blog-post-meta">January 1, 2014 by <a href="#">Hector Siman</a></p>
-
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum temporibus nesciunt voluptatem iusto voluptatibus quas cumque deserunt veritatis quibusdam perferendis!</p>
-        <hr>
-        <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-        <blockquote>
-          <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        </blockquote>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <h2>Heading</h2>
-        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <h3>Sub-heading</h3>
-        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-        <pre><code>Example code block</code></pre>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-        <h3>Sub-heading</h3>
-        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <ul>
-          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-          <li>Donec id elit non mi porta gravida at eget metus.</li>
-          <li>Nulla vitae elit libero, a pharetra augue.</li>
-        </ul>
-        <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-        <ol>
-          <li>Vestibulum id ligula porta felis euismod semper.</li>
-          <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-          <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-        </ol>
-        <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+        <h2 class="blog-post-title"><?= $row['title']; ?></h2>
+        <!-- THIS DATE IS NOT FRIENDLY YOU NEED TO FORMAT -->
+        <p class="blog-post-meta"><?= formatDate($row['date']); ?> by <a href="#"><?= $row['author']; ?></a></p>
+        <?= shortenText($row['body'], 200); ?>
+        <div>
+          <a href="post.php?id=<?= urlencode($row['id']); ?>">Continue reading</a>     
+        </div>
       </div><!-- /.blog-post -->
 
-      <div class="blog-post">
-        <h2 class="blog-post-title">Another blog post</h2>
-        <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
-
-        <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-        <blockquote>
-          <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        </blockquote>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      </div><!-- /.blog-post -->
-
-      <div class="blog-post">
-        <h2 class="blog-post-title">New feature</h2>
-        <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
-
-        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <ul>
-          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-          <li>Donec id elit non mi porta gravida at eget metus.</li>
-          <li>Nulla vitae elit libero, a pharetra augue.</li>
-        </ul>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-      </div><!-- /.blog-post -->
+    <?php endwhile; ?>
 
     </div><!-- /.blog-main -->
+<?php else : ?>
+    <p>There are no posts yet... Add one please!
+<?php endif; ?>
 
-    <aside class="col-md-4 blog-sidebar">
-      <div class="p-4 mb-3 bg-light rounded">
-        <h4 class="font-italic">About</h4>
-        <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-      </div>
-
-      <div class="p-4">
-        <h4 class="font-italic">Archives</h4>
-        <ol class="list-unstyled mb-0">
-          <li><a href="#">February 2021</a></li>
-        </ol>
-      </div>
-
-      <div class="p-4">
-        <h4 class="font-italic">Elsewhere</h4>
-        <ol class="list-unstyled">
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Facebook</a></li>
-        </ol>
-      </div>
-    </aside><!-- /.blog-sidebar -->
-
-  </div><!-- /.row -->
-
-</main><!-- /.container -->
 
 <?php require 'includes/footer.inc.php'; ?>
